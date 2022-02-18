@@ -1,4 +1,4 @@
-package com.viceri.todo.models;
+package com.viceri.todo.domain.models;
 
 import java.util.Date;
 

@@ -1,4 +1,4 @@
-package com.viceri.todo.dto;
+package com.viceri.todo.domain.dto;
 
 import java.util.Date;
 

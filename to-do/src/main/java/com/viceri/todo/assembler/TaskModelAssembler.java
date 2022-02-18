@@ -7,8 +7,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.viceri.todo.dto.TaskDTO;
-import com.viceri.todo.models.Task;
+import com.viceri.todo.domain.dto.TaskDTO;
+import com.viceri.todo.domain.models.Task;
 
 
 @Component

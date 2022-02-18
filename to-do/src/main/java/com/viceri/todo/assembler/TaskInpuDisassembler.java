@@ -4,11 +4,11 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.viceri.todo.dto.input.TaskInput;
-import com.viceri.todo.models.Task;
+import com.viceri.todo.domain.dto.input.TaskInput;
+import com.viceri.todo.domain.models.Task;
 
 @Component
-public class TaskModelDisassembler {
+public class TaskInpuDisassembler {
 
 	@Autowired
 	private ModelMapper modelMapper;

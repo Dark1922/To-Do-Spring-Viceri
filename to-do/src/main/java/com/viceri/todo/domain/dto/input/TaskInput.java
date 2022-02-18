@@ -1,4 +1,4 @@
-package com.viceri.todo.dto.input;
+package com.viceri.todo.domain.dto.input;
 
 import javax.validation.constraints.NotBlank;
 
