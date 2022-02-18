@@ -7,7 +7,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class TaskInputDTO {
+public class TaskInput {
 	
 	    @NotBlank
 	    private String titulo;
