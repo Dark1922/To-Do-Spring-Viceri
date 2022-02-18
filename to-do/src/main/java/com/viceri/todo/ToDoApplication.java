@@ -1,4 +1,4 @@
-package com.viceritodo;
+package com.viceri.todo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
