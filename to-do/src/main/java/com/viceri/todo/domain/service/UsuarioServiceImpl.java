@@ -3,6 +3,7 @@ package com.viceri.todo.domain.service;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.viceri.todo.assembler.UsuarioInpuDisassembler;
@@ -54,7 +55,13 @@ public class UsuarioServiceImpl implements UsuarioService {
 	@Override
 	@Transactional
 	public UsuarioDTO save(UsuarioInput usuarioInput) {
-		Usuario usuarioAtual = usuarioInpuDisassembler.toDomainObject(usuarioInput);
+		
+    	Usuario usuarioAtual = usuarioInpuDisassembler.toDomainObject(usuarioInput);
+    	
+    	/*Criptografia de senha*/
+		String senhaCriptografada = new BCryptPasswordEncoder().encode(usuarioAtual.getPassword());
+		usuarioAtual.setPassword(senhaCriptografada);
+		
 		return usuarioModelAssembler.toModel(usuarioRepository.save(usuarioAtual));
 	}
 
@@ -62,7 +69,5 @@ public class UsuarioServiceImpl implements UsuarioService {
 		return usuarioRepository.findById(id)
 				.orElseThrow(() -> new UsuarioNotFoundException(String.format(MSG_USUARIO_NAO_ENCOTNADA, id)));
 	}
-
-	
 
 }

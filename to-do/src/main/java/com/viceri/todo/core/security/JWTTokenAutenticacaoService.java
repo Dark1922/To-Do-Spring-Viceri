@@ -17,7 +17,6 @@ import com.viceri.todo.domain.repository.UsuarioRepository;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
-
 @Service
 @Component
 public class JWTTokenAutenticacaoService {
@@ -106,8 +105,8 @@ public class JWTTokenAutenticacaoService {
 					 
 					 
 					 return new UsernamePasswordAuthenticationToken(
-							 usuario.getEmail(),
-							 usuario.getSenha(), 
+							 usuario.getLogin(),
+							 usuario.getPassword(), 
 							 usuario.getAuthorities());	
 					 }
 			      }

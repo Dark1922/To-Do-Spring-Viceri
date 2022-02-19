@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.ConstraintMode;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -16,7 +17,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.UniqueConstraint;
 
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -38,12 +38,16 @@ public class Usuario implements UserDetails{
 	
 	private String nome;
 	
-	private String email;
+	@Column(unique = true)
+	private String login;
 	
-	private String senha;
+	private String password;
 	
 	@JsonIgnore
 	private String token = "";
+	
+	@OneToMany(mappedBy = "usuario")
+	private List<Task> tasks = new ArrayList<>();
 	
     @OneToMany(fetch = FetchType.EAGER) 
 	@JoinTable(name = "usuarios_role", uniqueConstraints = @UniqueConstraint(
@@ -62,12 +66,12 @@ public class Usuario implements UserDetails{
 
 	@Override
 	public String getPassword() {
-		return this.senha;
+		return this.password;
 	}
 
 	@Override
 	public String getUsername() {
-		return this.email;
+		return this.login;
 	}
 
 	@Override
@@ -89,5 +93,6 @@ public class Usuario implements UserDetails{
 	public boolean isEnabled() {
 		return true;
 	}
+
 
 }

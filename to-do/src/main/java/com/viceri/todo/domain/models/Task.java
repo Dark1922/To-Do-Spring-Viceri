@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -33,6 +35,10 @@ public class Task {
 
 	    @CreationTimestamp
 	    private Date createdAt;
+	    
+	    @ManyToOne
+		@JoinColumn(nullable = true)
+		private Usuario usuario;
 	    
 	    private Prioridade prioridade;
 

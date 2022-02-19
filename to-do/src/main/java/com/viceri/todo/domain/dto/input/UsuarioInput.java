@@ -15,10 +15,10 @@ public class UsuarioInput {
 
 	@NotBlank
 	@Email
-	private String email;
+	private String login;
 
 	@NotBlank
-	private String senha;
+	private String password;
 
 
 

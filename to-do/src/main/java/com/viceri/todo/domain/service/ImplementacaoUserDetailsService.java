@@ -21,17 +21,17 @@ public class ImplementacaoUserDetailsService implements UserDetailsService{
 	private JdbcTemplate jdbcTemplate; //executa sql puro
 	
 	@Override
-	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+	public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
 		
 		//consultar no banco o usuario
 		
-		Usuario usuario = usuarioRepository.findByEmail(email);
+		Usuario usuario = usuarioRepository.findByLogin(login);
 		
 		if(usuario == null) {
 			throw new UsernameNotFoundException("Usuário não foi encontrado"); //username não encontrado
 		}
 		
-		return new User(usuario.getEmail(), usuario.getSenha(), usuario.getAuthorities());
+		return new User(usuario.getLogin(), usuario.getPassword(), usuario.getAuthorities());
 		//usuario tem que passar login senha e suas autoridade
 	} 
 
