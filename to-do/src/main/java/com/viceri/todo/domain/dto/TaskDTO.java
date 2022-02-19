@@ -15,7 +15,7 @@ public class TaskDTO {
 	
 	    private String titulo;
 
-	    private String drescricao;
+	    private String descricao;
 	    
 	    private boolean prioridade;
 

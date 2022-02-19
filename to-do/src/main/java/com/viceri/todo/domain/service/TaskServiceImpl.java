@@ -47,6 +47,19 @@ public class TaskServiceImpl implements TaskService {
 	}
 
 	@Override
+	@Transactional  
+	public void taskCompleta(Long id) {
+		Task taskAtual = BuscarOuFalhar(id);
+		taskAtual.isTaskCompleta();
+	}
+	
+	@Override
+	@Transactional
+	public TaskDTO findById(Long id) {
+		return taskModelAssembler.toModel(BuscarOuFalhar(id));
+	}
+	
+	@Override
 	@Transactional
 	public TaskDTO save(TaskInput taskInput) {
 		Task taskAtual = taskInpuDisassembler.toDomainObject(taskInput);
@@ -57,4 +70,6 @@ public class TaskServiceImpl implements TaskService {
 		return taskRepository.findById(id)
 				.orElseThrow(() -> new TaskNotFoundException(String.format(MSG_TASK_NAO_ENCOTNADA, id)));
 	}
+	
+	
 }

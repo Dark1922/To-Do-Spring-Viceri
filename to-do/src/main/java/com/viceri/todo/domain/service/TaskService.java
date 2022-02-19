@@ -10,4 +10,9 @@ public interface TaskService {
 	void delete(Long id);
 	
 	TaskDTO save(TaskInput taskInput);
+	
+	public void taskCompleta(Long id);
+	
+	TaskDTO findById(Long id);
+
 }

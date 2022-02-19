@@ -20,18 +20,20 @@ public class Task {
 	    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	    private  Long id;
 
-	    @Column(nullable = false)
+	    @Column(nullable = false, length = 80)
 	    private String titulo;
 
-	    @Column(nullable = false)
-	    private String drescricao;
+	    @Column(nullable = false, length = 1000)
+	    private String descricao;
 	    
-	    @Column(nullable = false)
-	    private boolean prioridade;
+	    private boolean taskCompleta;
 
 	    @CreationTimestamp
-	    @Column(name = "created_at", nullable = false, updatable = false)
 	    private Date createdAt;
+	    
+	    public void prioridade() {
+			setTaskCompleta(true);
+		}
 
 	   
 

@@ -13,6 +13,6 @@ public class TaskInput {
 	    private String titulo;
 
 	    @NotBlank
-	    private String drescricao;
+	    private String descricao;
 
 }
