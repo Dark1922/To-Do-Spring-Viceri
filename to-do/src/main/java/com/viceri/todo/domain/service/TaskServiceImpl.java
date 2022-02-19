@@ -1,5 +1,7 @@
 package com.viceri.todo.domain.service;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,7 +52,7 @@ public class TaskServiceImpl implements TaskService {
 	@Transactional  
 	public void taskCompleta(Long id) {
 		Task taskAtual = BuscarOuFalhar(id);
-		taskAtual.isTaskCompleta();
+		taskAtual.setStatusCompletado(true);
 	}
 	
 	@Override
@@ -71,5 +73,9 @@ public class TaskServiceImpl implements TaskService {
 				.orElseThrow(() -> new TaskNotFoundException(String.format(MSG_TASK_NAO_ENCOTNADA, id)));
 	}
 	
+	@Override
+	public List<TaskDTO> findTarefaNaoCompletada() {
+		return taskModelAssembler.toCollectionModel(taskRepository.tarefasPendentes());
+	}
 	
 }

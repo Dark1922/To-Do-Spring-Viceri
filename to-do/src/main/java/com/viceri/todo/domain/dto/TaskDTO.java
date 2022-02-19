@@ -2,8 +2,6 @@ package com.viceri.todo.domain.dto;
 
 import java.util.Date;
 
-import org.hibernate.annotations.CreationTimestamp;
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,9 +15,8 @@ public class TaskDTO {
 
 	    private String descricao;
 	    
-	    private boolean prioridade;
+	    private Boolean statusCompletado;
 
-	    @CreationTimestamp
 	    private Date createdAt;
 
 }

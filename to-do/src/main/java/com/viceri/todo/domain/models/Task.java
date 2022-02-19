@@ -11,13 +11,16 @@ import javax.persistence.Id;
 import org.hibernate.annotations.CreationTimestamp;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Entity
 @Data
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Task {
 	
 	    @Id
 	    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	    @EqualsAndHashCode.Include
 	    private  Long id;
 
 	    @Column(nullable = false, length = 80)
@@ -26,15 +29,9 @@ public class Task {
 	    @Column(nullable = false, length = 1000)
 	    private String descricao;
 	    
-	    private boolean taskCompleta;
+	    private Boolean statusCompletado = false; //falso por padrão
 
 	    @CreationTimestamp
 	    private Date createdAt;
-	    
-	    public void prioridade() {
-			setTaskCompleta(true);
-		}
-
-	   
 
 }

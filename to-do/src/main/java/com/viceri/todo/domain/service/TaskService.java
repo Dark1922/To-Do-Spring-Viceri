@@ -1,5 +1,7 @@
 package com.viceri.todo.domain.service;
 
+import java.util.List;
+
 import com.viceri.todo.domain.dto.TaskDTO;
 import com.viceri.todo.domain.dto.input.TaskInput;
 
@@ -14,5 +16,7 @@ public interface TaskService {
 	public void taskCompleta(Long id);
 	
 	TaskDTO findById(Long id);
+	
+	List<TaskDTO> findTarefaNaoCompletada();
 
 }
