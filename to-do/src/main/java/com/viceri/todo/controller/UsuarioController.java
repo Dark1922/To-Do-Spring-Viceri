@@ -17,7 +17,7 @@ import com.viceri.todo.domain.service.UsuarioService;
 
 @RestController
 @RequestMapping(path = "/usuarios", produces = MediaType.APPLICATION_JSON_VALUE)
-public class TaskController {
+public class UsuarioController {
 
 	@Autowired
 	private UsuarioService usuarioService;

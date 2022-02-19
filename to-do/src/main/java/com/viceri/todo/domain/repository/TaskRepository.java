@@ -11,7 +11,7 @@ import com.viceri.todo.domain.models.Task;
 @Repository
 public interface TaskRepository extends JpaRepository<Task, Long> {
 	
-	@Query(value = "from Task t where t.statusCompletado = false")
+	@Query(value = "select t from Task t where t.statusCompletado = false")
 	List<Task> tarefasPendentes();
 
 }

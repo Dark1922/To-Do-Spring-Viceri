@@ -13,18 +13,15 @@ import com.viceri.todo.assembler.TaskModelAssembler;
 import com.viceri.todo.domain.dto.TaskDTO;
 import com.viceri.todo.domain.dto.input.TaskInput;
 import com.viceri.todo.domain.exception.TaskNotFoundException;
-import com.viceri.todo.domain.exception.TokenNotFoundException;
 import com.viceri.todo.domain.models.Task;
 import com.viceri.todo.domain.models.Usuario;
 import com.viceri.todo.domain.repository.TaskRepository;
-import com.viceri.todo.domain.repository.UsuarioRepository;
 
 @Service
 public class TaskServiceImpl implements TaskService {
 
 	private static final String MSG_TASK_NAO_ENCOTNADA = "Não existe um cadastro de Task com código %d";
 	
-	private static final String MSG_TOKEN_NAO_ENCOTNADA = "Não existe um cadastro de Task com código %d";
 
 	@Autowired
 	private TaskModelAssembler taskModelAssembler;
@@ -36,8 +33,9 @@ public class TaskServiceImpl implements TaskService {
 	private TaskRepository taskRepository;
 	
 	@Autowired
-	private UsuarioRepository usuarioRepository;
-
+	private UsuarioService usuarioService;
+	
+	
 	@Override
 	@Transactional
 	public TaskDTO update(Long id, TaskInput taskInput) {
@@ -72,7 +70,10 @@ public class TaskServiceImpl implements TaskService {
 	@Override
 	@Transactional
 	public TaskDTO save(TaskInput taskInput) {
+		Long usuarioId = usuarioService.getUserId();
+		Usuario usuario = usuarioService.buscarOuFalhar(usuarioId);
 		Task taskAtual = taskInpuDisassembler.toDomainObject(taskInput);
+		taskAtual.setUsuario(usuario);
 		return taskModelAssembler.toModel(taskRepository.save(taskAtual));
 	}
 

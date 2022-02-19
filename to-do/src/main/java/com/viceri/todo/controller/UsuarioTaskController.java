@@ -23,7 +23,7 @@ import com.viceri.todo.domain.service.TaskService;
 
 @RestController
 @RequestMapping(path = "/tasks", produces = MediaType.APPLICATION_JSON_VALUE)
-public class TaskController2 {
+public class UsuarioTaskController {
 
 	@Autowired
 	private TaskService taskService;
@@ -35,7 +35,7 @@ public class TaskController2 {
 		return ResponseEntity.ok(taskService.findById(id));
 	}
 
-	@PostMapping
+	@PostMapping("/{usuarioId}")
 	public ResponseEntity<TaskDTO> saveTask(@RequestBody @Valid TaskInput taskInput) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(taskService.save(taskInput));
 	}

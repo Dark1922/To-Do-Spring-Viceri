@@ -3,6 +3,7 @@ package com.viceri.todo.domain.service;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -65,9 +66,16 @@ public class UsuarioServiceImpl implements UsuarioService {
 		return usuarioModelAssembler.toModel(usuarioRepository.save(usuarioAtual));
 	}
 
-	public Usuario BuscarOuFalhar(Long id) {
+	public Usuario buscarOuFalhar(Long id) {
 		return usuarioRepository.findById(id)
 				.orElseThrow(() -> new UsuarioNotFoundException(String.format(MSG_USUARIO_NAO_ENCOTNADA, id)));
+	}
+
+	@Override()
+	@Transactional()
+	public Long getUserId() {
+		String id = SecurityContextHolder.getContext().getAuthentication().getName();
+		return usuarioRepository.findByLogin(id).getId();
 	}
 
 }
