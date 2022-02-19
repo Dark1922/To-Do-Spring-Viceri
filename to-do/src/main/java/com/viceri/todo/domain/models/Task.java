@@ -33,5 +33,7 @@ public class Task {
 
 	    @CreationTimestamp
 	    private Date createdAt;
+	    
+	    private Prioridade prioridade;
 
 }

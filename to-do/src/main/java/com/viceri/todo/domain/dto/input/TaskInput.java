@@ -6,6 +6,8 @@ import javax.validation.constraints.NotBlank;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.viceri.todo.domain.models.Prioridade;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,5 +23,7 @@ public class TaskInput {
 	    
 	    @CreationTimestamp
 	    private Date createdAt;
+	    
+	    private Prioridade prioridade;
 
 }
