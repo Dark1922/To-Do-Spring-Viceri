@@ -29,7 +29,7 @@ public class WebConfigSecurity extends WebSecurityConfigurerAdapter {
     	.disable().authorizeRequests().antMatchers("/").permitAll()
     	
     	/*cors permitido nas tela inicial do sistema para login ou recuperar exemplos*/
-    	.antMatchers("/index", "/swagger-ui/*", "/swagger-resources/**","/v2/api-docs/**").permitAll()
+    	.antMatchers("/index", "/swagger-ui/*", "/swagger-resources/**","/v2/api-docs/**", "/usuarios/**").permitAll()
     	
     	.antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
     	

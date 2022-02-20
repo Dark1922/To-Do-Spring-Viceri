@@ -30,22 +30,22 @@ public class UsuarioServiceImpl implements UsuarioService {
 
 	@Autowired
 	private UsuarioRepository usuarioRepository;
- 
+
 	@Override
 	@Transactional
 	public UsuarioDTO save(UsuarioInput usuarioInput) {
 
 		validarEmail(usuarioInput);
-		
+
 		Usuario usuarioAtual = usuarioInpuDisassembler.toDomainObject(usuarioInput);
-		
+
 		/* Criptografia de senha */
 		String senhaCriptografada = new BCryptPasswordEncoder().encode(usuarioAtual.getPassword());
 		usuarioAtual.setPassword(senhaCriptografada);
-		
+
 		return usuarioModelAssembler.toModel(usuarioRepository.save(usuarioAtual));
-		}
-	
+	}
+
 	public void validarEmail(UsuarioInput usuarioInput) {
 		boolean usuarioExistente = usuarioRepository.findByLogin(usuarioInput.getLogin()) != null;
 		if (usuarioExistente) {

@@ -5,7 +5,6 @@ import java.util.List;
 import com.viceri.todo.domain.dto.TaskDTO;
 import com.viceri.todo.domain.dto.input.TaskInput;
 import com.viceri.todo.domain.models.Prioridade;
-import com.viceri.todo.domain.models.Task;
 
 public interface TaskService {
 
