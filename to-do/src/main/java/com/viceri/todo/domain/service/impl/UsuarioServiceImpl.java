@@ -15,7 +15,6 @@ import com.viceri.todo.domain.exception.UsuarioNotFoundException;
 import com.viceri.todo.domain.models.Usuario;
 import com.viceri.todo.domain.repository.UsuarioRepository;
 import com.viceri.todo.domain.service.UsuarioService;
-
 @Service
 public class UsuarioServiceImpl implements UsuarioService {
 
