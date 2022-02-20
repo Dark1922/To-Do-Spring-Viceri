@@ -21,9 +21,9 @@
 
 
 
-## Apresentação Swagger
+## Apresentação Swagger e autenticação para funcionalidades das tarefas com suas regras de negócios.
 
-![image](https://user-images.githubusercontent.com/48605830/154866715-1827afd3-f0c2-44a4-97d9-ed94c26f623a.png)
+![swaggerzada](https://user-images.githubusercontent.com/48605830/154868612-185babd6-98d9-4e0e-b25d-6e96247f320f.gif)
 
 <hr />
 
