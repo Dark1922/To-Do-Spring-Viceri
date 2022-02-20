@@ -9,7 +9,7 @@
 - [x] <strong>Exclusão de uma tarefa</strong>
 - [x] <strong>Alteração de uma tarefa</strong>
 - [x] <strong>Marcar uma tarefa como concluída</strong>
-- [ ] <strong>Listar as tarefas pendentes, filtrando opcionalmente pela prioridade</strong>
+- [x] <strong>Listar as tarefas pendentes, filtrando opcionalmente pela prioridade</strong>
 - [x] <strong>Autenticação do usuário por meio de e-mail e senha</strong>
 - [x] <strong>Disponibilização da documentação da API Swagger.</strong>
 
