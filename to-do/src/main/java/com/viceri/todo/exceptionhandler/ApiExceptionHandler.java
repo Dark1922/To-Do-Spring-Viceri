@@ -1,7 +1,5 @@
 package com.viceri.todo.exceptionhandler;
 
-
-
 import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -108,7 +106,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 		ProblemType problemType = ProblemType.ERRO_DE_SISTEMA;
 		String detail = MSG_ERRO_GENERICA_USUARIO_FINAL;
 
-		 log.error(ex.getMessage(), ex);
+		log.error(ex.getMessage(), ex);
 
 		Problem problem = createProblemBuilder(status, problemType, detail).userMessage(detail).build();
 
@@ -177,8 +175,6 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 	private ResponseEntity<Object> handlePropertyBinding(PropertyBindingException ex, HttpHeaders headers,
 			HttpStatus status, WebRequest request) {
 
-		// método joinPath serve para reaproveitar em todos os métodos que precisam
-		// concatenar os nomes das propriedades (separando por ".")
 		String path = joinPath(ex.getPath());
 
 		ProblemType problemType = ProblemType.MENSAGEM_INCOMPREENSIVEL;

@@ -40,7 +40,7 @@ public class UserDetailsServiceImpl implements UserDetailsService{
 		if(constraint != null) {
 		
 		jdbcTemplate.execute("alter table usuarios_role DROP CONSTRAINT " + constraint);
-		
+		 
 		usuarioRepository.insereAcessoRolePadrao(id);
 		}
 	}

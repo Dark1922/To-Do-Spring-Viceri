@@ -14,7 +14,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 
 	@Transactional
 	@Query("select u from Usuario u where u.login = ?1")
-	Usuario findByLogin(String login);
+	 Usuario findByLogin(String login);
 
 	@Transactional
 	@Query("select u from Usuario u where u.token = ?1")

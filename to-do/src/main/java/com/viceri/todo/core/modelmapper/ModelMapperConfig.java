@@ -14,8 +14,8 @@ public class ModelMapperConfig {
 	public ModelMapper modelMapper() {
 		var modelMapper = new ModelMapper();
 		
-		modelMapper.createTypeMap(Usuario.class, UsuarioDTO.class).addMapping(Usuario::getLogin, UsuarioDTO::setEmail)
-		.addMapping(Usuario::getPassword, UsuarioDTO::setSenha);
+		modelMapper.createTypeMap(Usuario.class, UsuarioDTO.class).addMapping(Usuario::getLogin, UsuarioDTO::setEmail);
+//		.addMapping(Usuario::getPassword, UsuarioDTO::setSenha)
 		
 		
 

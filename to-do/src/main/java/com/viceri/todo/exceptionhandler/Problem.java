@@ -1,6 +1,5 @@
 package com.viceri.todo.exceptionhandler;
 
-
 import java.time.OffsetDateTime;
 import java.util.List;
 

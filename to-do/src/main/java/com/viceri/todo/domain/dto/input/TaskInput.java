@@ -15,7 +15,6 @@ public class TaskInput {
 	    @NotBlank
 	    private String titulo;
 
-	    @NotBlank
 	    private String descricao;
 	    
 	    @NotNull

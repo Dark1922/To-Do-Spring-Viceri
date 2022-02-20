@@ -8,16 +8,15 @@ import lombok.Setter;
 @Getter
 @Setter
 public class TaskDTO {
-	
+
 	private Long id;
-	
-	    private String titulo;
 
-	    private String descricao;
-	    
-	    private Boolean statusCompletado;
+	private String titulo;
 
-	    
-	    private Prioridade prioridade;
+	private String descricao;
+
+	private Boolean statusCompletado;
+
+	private Prioridade prioridade;
 
 }
