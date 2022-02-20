@@ -13,7 +13,7 @@ import lombok.Setter;
 @Setter
 public class TaskInput {
 	
-	    @ApiModelProperty(example = "Fazer implementações de formas de pagamento")
+	    @ApiModelProperty(example = "Fazer implementações de formas de pagamento", required = true)
 	    @NotBlank
 	    private String titulo;
 

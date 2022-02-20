@@ -16,6 +16,7 @@ import com.fasterxml.classmate.TypeResolver;
 import com.viceri.todo.exceptionhandler.Problem;
 
 import springfox.documentation.builders.ApiInfoBuilder;
+import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RepresentationBuilder;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.builders.ResponseBuilder;
@@ -42,6 +43,7 @@ public class SwaggerConfig implements WebMvcConfigurer {
 
 		return new Docket(DocumentationType.SWAGGER_2).select()
 				.apis(RequestHandlerSelectors.basePackage("com.viceri.todo"))
+				.paths(PathSelectors.any())
 				.build()
 				.groupName("V1")
 				.useDefaultResponseMessages(false)
