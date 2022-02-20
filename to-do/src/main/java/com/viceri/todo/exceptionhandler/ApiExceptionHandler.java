@@ -33,6 +33,9 @@ import com.fasterxml.jackson.databind.exc.PropertyBindingException;
 import com.viceri.todo.core.validator.ValidationException;
 import com.viceri.todo.domain.exception.NegocioException;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @ControllerAdvice
 public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
@@ -105,7 +108,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 		ProblemType problemType = ProblemType.ERRO_DE_SISTEMA;
 		String detail = MSG_ERRO_GENERICA_USUARIO_FINAL;
 
-		ex.printStackTrace();
+		 log.error(ex.getMessage(), ex);
 
 		Problem problem = createProblemBuilder(status, problemType, detail).userMessage(detail).build();
 
