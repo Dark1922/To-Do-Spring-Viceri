@@ -45,8 +45,10 @@ public class Problem {
 	@Builder
 	public static class Object {
 
+		@ApiModelProperty(example = "Recurso não encontrado, requisição inváçida", position = 5)
 		private String name;
 
+		@ApiModelProperty(example = "Aceitamos somente application/json, acessou uma requisição inválida", position = 10)
 		private String userMessage;
 
 	}
