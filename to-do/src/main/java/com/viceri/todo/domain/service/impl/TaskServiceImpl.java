@@ -102,6 +102,12 @@ public class TaskServiceImpl implements TaskService {
 		return taskModelAssembler.toCollectionModel(taskRepository.findTarefasPendentesFiltro(prioridade, usuarioId));
 	}
 	
+	@Override
+	@Transactional
+	public List<TaskDTO> findTarefasPendentesFiltroAll(Prioridade prioridade) {
+		return taskModelAssembler.toCollectionModel(taskRepository.findTarefasPendentesFiltroAll(prioridade));
+	}
+	
 	/*Validações com contexto do usuário autenticado*/
 	public void contextValidateJwt(Long id) {
 		Task taskAtual = BuscarOuFalhar(id);
@@ -126,5 +132,10 @@ public class TaskServiceImpl implements TaskService {
 		return taskRepository.findById(id)
 				.orElseThrow(() -> new TaskNotFoundException(String.format(MSG_TASK_NAO_ENCOTNADA, id)));
 	}
-	
+
+	@Override
+	public List<TaskDTO> tarefasPendentesAll() {
+		return taskModelAssembler.toCollectionModel(taskRepository.tarefasPendentesAll());
+	}
+
 }

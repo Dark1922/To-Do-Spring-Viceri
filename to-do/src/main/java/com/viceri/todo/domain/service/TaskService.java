@@ -5,6 +5,7 @@ import java.util.List;
 import com.viceri.todo.domain.dto.TaskDTO;
 import com.viceri.todo.domain.dto.input.TaskInput;
 import com.viceri.todo.domain.models.Prioridade;
+import com.viceri.todo.domain.models.Task;
 
 public interface TaskService {
 
@@ -19,7 +20,11 @@ public interface TaskService {
 	TaskDTO findById(Long id);
 
 	List<TaskDTO> findTarefasPendentes(Long usuarioId);
+	
+	List<TaskDTO> tarefasPendentesAll();
 
 	List<TaskDTO> findTarefasPendentesFiltro(Prioridade prioridade, Long usuarioId);
+	
+	List<TaskDTO> findTarefasPendentesFiltroAll(Prioridade prioridade);
 
 }

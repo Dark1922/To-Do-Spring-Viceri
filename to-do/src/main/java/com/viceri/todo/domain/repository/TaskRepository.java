@@ -20,5 +20,11 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
 	@Query("select T from Task as T where T.statusCompletado = 'false' and T.prioridade = :prioridade and "
 			+ "T.usuario.id = :usuarioId ")
 	List<Task> findTarefasPendentesFiltro(@Param("prioridade") Prioridade prioridade,@PathVariable Long usuarioId);
+	
+	@Query("select T from Task as T where T.statusCompletado = 'false' and T.prioridade = :prioridade ")
+	List<Task> findTarefasPendentesFiltroAll(@Param("prioridade") Prioridade prioridade);
+	
+	@Query(value = "select t from Task t where t.statusCompletado = false")
+	List<Task> tarefasPendentesAll();
 
 }

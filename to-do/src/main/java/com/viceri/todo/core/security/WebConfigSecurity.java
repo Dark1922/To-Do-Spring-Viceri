@@ -21,7 +21,6 @@ public class WebConfigSecurity extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private UserDetailsServiceImpl implementacaoUserDetailsService;
 	
-	
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
@@ -30,7 +29,7 @@ public class WebConfigSecurity extends WebSecurityConfigurerAdapter {
     	.disable().authorizeRequests().antMatchers("/").permitAll()
     	
     	/*cors permitido nas tela inicial do sistema para login ou recuperar exemplos*/
-    	.antMatchers("/index", "/**").permitAll()
+    	.antMatchers("/index", "/swagger-ui/*", "/swagger-resources/**","/v2/api-docs/**").permitAll()
     	
     	.antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
     	
@@ -41,8 +40,11 @@ public class WebConfigSecurity extends WebSecurityConfigurerAdapter {
     	
     	//Filtrar requisições de login para autenticação
         .and().addFilterBefore(new JWTLoginFilter("/login", authenticationManager()),
-        		UsernamePasswordAuthenticationFilter.class)   	
+        		UsernamePasswordAuthenticationFilter.class);   	
     	
+    	 http.csrf().disable()
+    	   
+        
     	//filtrar demais requisições para verificar a presenção do token jwt no headerr http
     	.addFilterBefore(new JwtApiAutenticacaoFilter(), UsernamePasswordAuthenticationFilter.class);	
     }	
@@ -56,4 +58,5 @@ public class WebConfigSecurity extends WebSecurityConfigurerAdapter {
 		//padrão de codificação de senha criptografia
 		.passwordEncoder(new BCryptPasswordEncoder());
 	}
+	
 }

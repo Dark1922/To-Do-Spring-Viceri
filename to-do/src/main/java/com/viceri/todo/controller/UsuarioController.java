@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.viceri.todo.domain.dto.UsuarioDTO;
@@ -24,8 +25,9 @@ public class UsuarioController implements UsuarioControllerOpenApi {
 	private UsuarioService usuarioService;
 
 	@PostMapping
+	@ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity<UsuarioDTO> salvarUsuario(@RequestBody @Valid UsuarioInput usuarioInput) {
-		return ResponseEntity.status(HttpStatus.CREATED).body(usuarioService.save(usuarioInput));
+		return ResponseEntity.ok().body(usuarioService.save(usuarioInput));
 	}
 
 
