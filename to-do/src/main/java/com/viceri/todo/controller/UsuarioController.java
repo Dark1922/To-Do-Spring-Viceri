@@ -14,10 +14,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.viceri.todo.domain.dto.UsuarioDTO;
 import com.viceri.todo.domain.dto.input.UsuarioInput;
 import com.viceri.todo.domain.service.UsuarioService;
+import com.viceri.todo.openapi.controller.UsuarioControllerOpenApi;
 
 @RestController
 @RequestMapping(path = "/usuarios", produces = MediaType.APPLICATION_JSON_VALUE)
-public class UsuarioController {
+public class UsuarioController implements UsuarioControllerOpenApi {
 
 	@Autowired
 	private UsuarioService usuarioService;

@@ -22,10 +22,11 @@ import com.viceri.todo.domain.dto.TaskDTO;
 import com.viceri.todo.domain.dto.input.TaskInput;
 import com.viceri.todo.domain.models.Prioridade;
 import com.viceri.todo.domain.service.TaskService;
+import com.viceri.todo.openapi.controller.TaskControllerOpenApi;
 
 @RestController
 @RequestMapping(path = "/tasks", produces = MediaType.APPLICATION_JSON_VALUE)
-public class UsuarioTaskController {
+public class UsuarioTaskController implements TaskControllerOpenApi {
 
 	@Autowired
 	private TaskService taskService;
@@ -58,11 +59,11 @@ public class UsuarioTaskController {
 	}
 	
 	@GetMapping("/pendente/{usuarioId}")
-	public ResponseEntity<List<TaskDTO>> tarefaPendenteFiltro(@RequestParam(required = false) Prioridade TaskPrioridade,
+	public ResponseEntity<List<TaskDTO>> tarefaPendenteFiltro(@RequestParam(required = false) Prioridade prioridade,
 			@PathVariable Long usuarioId) {
 		
-		if(TaskPrioridade != null) {
-		return ResponseEntity.ok().body(taskService.findTarefasPendentesFiltro(TaskPrioridade,usuarioId));
+		if(prioridade != null) {
+		return ResponseEntity.ok().body(taskService.findTarefasPendentesFiltro(prioridade,usuarioId));
 		}
 		
 		return ResponseEntity.ok().body(taskService.findTarefasPendentes(usuarioId));
