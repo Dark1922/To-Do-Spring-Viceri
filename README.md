@@ -1,7 +1,7 @@
-<p align="center">
+<div align="center">
   <h3 align="center">🚀 # TO-DO</h3>
 
-  <p align="center">
+ 
    **Requisitos**
 **Segue abaixo o resumo dos requisitos que devem ser desenvolvidos:**
 - [x] <strong>Cadastro de um novo usuário</strong>
@@ -9,13 +9,13 @@
 - [x] <strong>Exclusão de uma tarefa</strong>
 - [x] <strong>Alteração de uma tarefa</strong>
 - [x] <strong>Marcar uma tarefa como concluída</strong>
-- [x] <strong>Listar as tarefas pendentes, filtrando opcionalmente pela prioridade</strong>
+- [ ] <strong>Listar as tarefas pendentes, filtrando opcionalmente pela prioridade</strong>
 - [x] <strong>Autenticação do usuário por meio de e-mail e senha</strong>
 - [x] <strong>Disponibilização da documentação da API Swagger.</strong>
 
    
-  </p>
-</p>
+ </div>
+
 
 <hr />
 
