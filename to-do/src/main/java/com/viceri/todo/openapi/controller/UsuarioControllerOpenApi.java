@@ -16,7 +16,7 @@ import io.swagger.annotations.ApiResponses;
 public interface UsuarioControllerOpenApi {
 
 	@ApiOperation("Cadastra um Usuario")
-	@ApiResponses({ @ApiResponse(code = 201, message = "Task cadastrada"),
+	@ApiResponses({ @ApiResponse(code = 201, message = "Usuario cadastrado"),
 			@ApiResponse(code = 400, message = "Dados do usuario inválido", response = Problem.class) })
 	public ResponseEntity<UsuarioDTO> salvarUsuario(
 			@ApiParam(name = "corpo", value = "Representação de um novo Usário") UsuarioInput usuarioInput);
