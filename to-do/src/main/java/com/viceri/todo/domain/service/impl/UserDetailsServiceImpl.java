@@ -18,12 +18,11 @@ public class UserDetailsServiceImpl implements UserDetailsService{
 
 	private UsuarioRepository usuarioRepository;
 	
-	private JdbcTemplate jdbcTemplate; //executa sql puro
+	private JdbcTemplate jdbcTemplate; 
 	
 	@Override
 	public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
 		
-		//consultar no banco o usuario
 		
 		Usuario usuario = usuarioRepository.findByLogin(login);
 		
@@ -32,19 +31,16 @@ public class UserDetailsServiceImpl implements UserDetailsService{
 		}
 		
 		return new User(usuario.getLogin(), usuario.getPassword(), usuario.getAuthorities());
-		//usuario tem que passar login senha e suas autoridade
 	} 
 
 	public void insereAcessoPadrão(Long id) {
-		//descobri qual é a constraint de restrição
-		String constraint  = usuarioRepository.consultarConstraintRole(); //busca o nome da constrait
 		
-		if(constraint != null) { //se ela realmente desistir vai dar o comando de remover ela no banco
+		String constraint  = usuarioRepository.consultarConstraintRole(); 
 		
-		//remove a constraint com nome que foi pego na consulta
+		if(constraint != null) {
+		
 		jdbcTemplate.execute("alter table usuarios_role DROP CONSTRAINT " + constraint);
 		
-		//insere os acesso padrão
 		usuarioRepository.insereAcessoRolePadrao(id);
 		}
 	}

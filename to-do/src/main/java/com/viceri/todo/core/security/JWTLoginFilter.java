@@ -17,29 +17,22 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.viceri.todo.domain.models.Usuario;
 
-//estabelece nosso gerenciador ou gerentede token
 public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
 
-	//Configurando o gerenciador de autenticação
 	protected JWTLoginFilter(String url, AuthenticationManager authenticationManager) {
         
-		//obriga a autenticar a url
 		super(new AntPathRequestMatcher(url)); 
           
-          //gerenciador de autenticação
           setAuthenticationManager(authenticationManager);
           
 	}
 
-	//retorna o usuario ao processar a autenticação
 	@Override
 	public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
 			throws AuthenticationException, IOException, ServletException {
 		
-		//está pegando o token para validar
 		Usuario user = new ObjectMapper().readValue(request.getInputStream(), Usuario.class);
 		
-		//Retorna o usuario login, senha e acessos
 		return getAuthenticationManager().authenticate(
 				new UsernamePasswordAuthenticationToken(user.getLogin(), user.getPassword()));
 	}
@@ -48,7 +41,6 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
 	protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain,
 			Authentication authResult) throws IOException, ServletException {
 		
-		//vai gerar nosso token pra validar no navegador da o sucesso ao autenticador
 		new  JWTTokenAutenticacaoService().addAuthentication(response, authResult.getName());
 	}
 

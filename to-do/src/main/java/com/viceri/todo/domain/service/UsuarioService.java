@@ -13,6 +13,8 @@ public interface UsuarioService {
 	Usuario buscarOuFalhar(Long id);
 	
 	Long getUserId();
+
+
 	
 	
 

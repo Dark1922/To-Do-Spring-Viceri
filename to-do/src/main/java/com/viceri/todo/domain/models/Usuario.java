@@ -25,8 +25,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @Entity
-@Data
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@Data@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Usuario implements UserDetails{
 	
 	private static final long serialVersionUID = 1L;

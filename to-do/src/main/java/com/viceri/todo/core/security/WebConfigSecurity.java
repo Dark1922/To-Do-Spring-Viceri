@@ -14,31 +14,26 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import com.viceri.todo.domain.service.impl.UserDetailsServiceImpl;
 
-//Mapea URLs , endereços, autoriza ou bloquea acessos a urls
 @Configuration
-@EnableWebSecurity //partde de segurança
+@EnableWebSecurity
 public class WebConfigSecurity extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	private UserDetailsServiceImpl implementacaoUserDetailsService;
 	
 	
-    @Override //configura as solicitações de acessos http
+    @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-    	//Ativando a proteção contra usuários que não estão validados por token
     	http.csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
     	
-    	//ativando a restrição / permissão para acesso a página inicial do sistema 
     	.disable().authorizeRequests().antMatchers("/").permitAll()
     	
-    	//permite todos usuarios na index também
-    	.antMatchers("/index", "/recuperar/**", "https://viacep/**").permitAll()
+    	/*cors permitido nas tela inicial do sistema para login ou recuperar exemplos*/
+    	.antMatchers("/index", "/recuperar/**").permitAll()
     	
-    	//get consultar leitura put post usando a api delete etc varios uso da api para o user
     	.antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
     	
-    	//URL De lougout - Redirecionar após o user deslogar do sistema
     	.anyRequest().authenticated().and().logout().logoutSuccessUrl("/index")
     	
     	//Mapeia url de logout e invalida o usuário
@@ -51,10 +46,6 @@ public class WebConfigSecurity extends WebSecurityConfigurerAdapter {
     	//filtrar demais requisições para verificar a presenção do token jwt no headerr http
     	.addFilterBefore(new JwtApiAutenticacaoFilter(), UsernamePasswordAuthenticationFilter.class);	
     }	
-	
-	
-	
-	
 	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {

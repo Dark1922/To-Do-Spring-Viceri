@@ -6,7 +6,6 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 
 import com.viceri.todo.assembler.TaskInpuDisassembler;
@@ -25,10 +24,9 @@ import com.viceri.todo.domain.service.UsuarioService;
 @Service
 public class TaskServiceImpl implements TaskService {
 
- private static final String MSG_TASK_NAO_ENCOTNADA = "Não existe um cadastro de Task com código %d";
- private static final String MSG_TASK_NAO_PODE_EXCLUIR_DE_OUTRO_USUARIO = "Não pode excluir umas task de outro usuário com código %d";
- private static final String MSG_NAO_PODE_COMPLETAR_TASK_DE_OUTRO_USUARIO = "Não pode completar task de outro usuário com código %d";
- private static final String MSG_NAO_PODE_ALTERAR_TASK_DE_OUTRO_USUARIO = "Não pode alterar task de outro usuário com código %d";
+ private static final String MSG_TASK_NAO_ENCOTNADA = "Não existe um cadastro de task com código %d";
+ private static final String MSG_NAO_PODE_MODIFICAR_TAKS_DE_OUTROS_USUARIO = "Não pode modificar task de outro usuário";
+ private static final String MSG_USUARIO_NAO_CORRESPONDENTE = "Não pode acessar tasks com usuário inválido";
 	
 
 	@Autowired
@@ -47,11 +45,7 @@ public class TaskServiceImpl implements TaskService {
 	@Transactional
 	public TaskDTO update(Long id, TaskInput taskInput) {
 		Task taskAtual = BuscarOuFalhar(id);
-		Long usuarioId = usuarioService.getUserId();
-		
-		if(usuarioId != taskAtual.getUsuario().getId()) {
-			throw new NegocioException(String.format(MSG_NAO_PODE_ALTERAR_TASK_DE_OUTRO_USUARIO, id));
-		}
+		contextValidateJwt(id);
 		taskInpuDisassembler.copyToDomainObject(taskInput, taskAtual);
 		return taskModelAssembler.toModel(taskRepository.save(taskAtual));
 	}
@@ -60,12 +54,7 @@ public class TaskServiceImpl implements TaskService {
 	@Transactional
 	public void delete(Long id) {
 		try {
-			Task taskAtual = BuscarOuFalhar(id);
-			Long usuarioId = usuarioService.getUserId();
-			
-			if(usuarioId != taskAtual.getUsuario().getId()) {
-				throw new NegocioException(String.format(MSG_TASK_NAO_PODE_EXCLUIR_DE_OUTRO_USUARIO, id));
-			}
+			contextValidateJwt(id);
 			taskRepository.deleteById(id);
 		} catch (EmptyResultDataAccessException e) {
 			throw new TaskNotFoundException(String.format(MSG_TASK_NAO_ENCOTNADA, id));
@@ -75,12 +64,8 @@ public class TaskServiceImpl implements TaskService {
 	@Override
 	@Transactional  
 	public void taskCompleta(Long id) {
+		contextValidateJwt(id);
 		Task taskAtual = BuscarOuFalhar(id);
-		Long usuarioId = usuarioService.getUserId();
-		
-		if(usuarioId != taskAtual.getUsuario().getId()) {
-			throw new NegocioException(String.format(MSG_NAO_PODE_COMPLETAR_TASK_DE_OUTRO_USUARIO, id));
-		}
 		taskAtual.setStatusCompletado(true);
 	}
 	
@@ -104,25 +89,37 @@ public class TaskServiceImpl implements TaskService {
 
 	@Override
 	@Transactional
-	public List<TaskDTO> findTarefasPendentes() {
-		
-		Task task = new Task();
-		Long usuarioId = usuarioService.getUserId();
-		Usuario usuario = usuarioService.buscarOuFalhar(usuarioId);
-		task.getUsuario().setId(usuario.getId());
-		
-		return taskModelAssembler.toCollectionModel(taskRepository.tarefasPendentes());
-				
+	public List<TaskDTO> findTarefasPendentes(Long usuarioId) {
+		contextValidateConsultaJwt(usuarioId);
+		return taskModelAssembler.toCollectionModel(taskRepository.tarefasPendentes(usuarioId));
+				 
 	}
 	
-	public List<TaskDTO> findTarefasPendentesFiltro(Prioridade prioridade) {
-		
-		Task task = new Task();
+	@Override
+	@Transactional
+	public List<TaskDTO> findTarefasPendentesFiltro(Prioridade prioridade, Long usuarioId) {
+		contextValidateConsultaJwt(usuarioId);
+		return taskModelAssembler.toCollectionModel(taskRepository.findTarefasPendentesFiltro(prioridade, usuarioId));
+	}
+	
+	/*Validações com contexto do usuário autenticado*/
+	public void contextValidateJwt(Long id) {
+		Task taskAtual = BuscarOuFalhar(id);
 		Long usuarioId = usuarioService.getUserId();
-		Usuario usuario = usuarioService.buscarOuFalhar(usuarioId);
-		task.getUsuario().setId(usuario.getId());
 		
-		return taskModelAssembler.toCollectionModel(taskRepository.findTarefasPendentesFiltro(prioridade));
+		if(usuarioId != taskAtual.getUsuario().getId()) {
+			throw new NegocioException(String.format(MSG_NAO_PODE_MODIFICAR_TAKS_DE_OUTROS_USUARIO));
+		}
+	}
+	
+	/*Usuário só pode acessar suas próprias tarefas pendente e não de outros usuários*/
+	public void contextValidateConsultaJwt(Long id) {
+		Usuario usuarioAtual = usuarioService.buscarOuFalhar(id);
+		Long usuarioId = usuarioService.getUserId();
+		
+		if(usuarioId != usuarioAtual.getId()) {
+			throw new NegocioException(String.format(MSG_USUARIO_NAO_CORRESPONDENTE));
+		}
 	}
 	
 	public Task BuscarOuFalhar(Long id) {

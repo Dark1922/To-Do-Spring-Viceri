@@ -57,14 +57,15 @@ public class UsuarioTaskController {
 		return ResponseEntity.noContent().build();
 	}
 	
-	@GetMapping("/pendente")
-	public ResponseEntity<List<TaskDTO>> tarefaPendenteFiltro(@RequestParam(required = false) Prioridade TaskPrioridade) {
+	@GetMapping("/pendente/{usuarioId}")
+	public ResponseEntity<List<TaskDTO>> tarefaPendenteFiltro(@RequestParam(required = false) Prioridade TaskPrioridade,
+			@PathVariable Long usuarioId) {
 		
 		if(TaskPrioridade != null) {
-		return ResponseEntity.ok().body(taskService.findTarefasPendentesFiltro(TaskPrioridade));
+		return ResponseEntity.ok().body(taskService.findTarefasPendentesFiltro(TaskPrioridade,usuarioId));
 		}
 		
-		return ResponseEntity.ok().body(taskService.findTarefasPendentes());
+		return ResponseEntity.ok().body(taskService.findTarefasPendentes(usuarioId));
 	}
 	
 	

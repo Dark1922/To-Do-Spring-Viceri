@@ -1,7 +1,5 @@
 package com.viceri.todo.domain.dto;
 
-import java.util.Date;
-
 import com.viceri.todo.domain.models.Prioridade;
 
 import lombok.Getter;
@@ -19,7 +17,6 @@ public class TaskDTO {
 	    
 	    private Boolean statusCompletado;
 
-	    private Date createdAt;
 	    
 	    private Prioridade prioridade;
 

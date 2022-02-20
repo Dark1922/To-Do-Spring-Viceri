@@ -72,11 +72,11 @@ public class UsuarioServiceImpl implements UsuarioService {
 				.orElseThrow(() -> new UsuarioNotFoundException(String.format(MSG_USUARIO_NAO_ENCOTNADA, id)));
 	}
 
+	/*contexto do usuário autenticado jwt pegando o id*/
 	@Override
 	@Transactional
 	public Long getUserId() {
 		String id = SecurityContextHolder.getContext().getAuthentication().getName();
 		return usuarioRepository.findByLogin(id).getId();
 	}
-
 }

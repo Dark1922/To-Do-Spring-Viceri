@@ -1,10 +1,7 @@
 package com.viceri.todo.domain.dto.input;
 
-import java.util.Date;
-
 import javax.validation.constraints.NotBlank;
-
-import org.hibernate.annotations.CreationTimestamp;
+import javax.validation.constraints.NotNull;
 
 import com.viceri.todo.domain.models.Prioridade;
 
@@ -21,9 +18,7 @@ public class TaskInput {
 	    @NotBlank
 	    private String descricao;
 	    
-	    @CreationTimestamp
-	    private Date createdAt;
-	    
+	    @NotNull
 	    private Prioridade prioridade;
 
 }

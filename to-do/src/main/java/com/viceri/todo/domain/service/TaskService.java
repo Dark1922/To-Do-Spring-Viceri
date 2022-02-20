@@ -18,8 +18,8 @@ public interface TaskService {
 
 	TaskDTO findById(Long id);
 
-	List<TaskDTO> findTarefasPendentes();
+	List<TaskDTO> findTarefasPendentes(Long usuarioId);
 
-	List<TaskDTO> findTarefasPendentesFiltro(Prioridade prioridade);
+	List<TaskDTO> findTarefasPendentesFiltro(Prioridade prioridade, Long usuarioId);
 
 }

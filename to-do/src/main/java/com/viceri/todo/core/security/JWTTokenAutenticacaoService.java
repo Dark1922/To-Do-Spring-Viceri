@@ -21,130 +21,73 @@ import io.jsonwebtoken.SignatureAlgorithm;
 @Component
 public class JWTTokenAutenticacaoService {
 
-	//tempo de validade do token coloquei o tempo de 1 dia em milisegundos
-	 private static final long EXPIRATION_TIME = 864000000;
-	 
-	 //uma senha única para compor a autenticação e ajudar na segurança
-	 private static final String SECRET = "*SenhaExtremamenteSecreta";
-	 
-	 //prefixo padrão de token
-	 private static final String TOKEN_PREFIXO = "Bearer";
-	
-	 
-	 private static final String HEADER_STRING = "Authorization";
-	 
-	 //gerando token de autenticação e adicionando ao cabeçalho e resposta http
-	 public void addAuthentication(HttpServletResponse response,
-			 String username)  throws IOException{
-		 
-		 //Montagem do token
-		 
-		//usuario que está sendo recebido por param e sua data de expiração
-		 //pegando a data atual de agora mais o tempo de expiração
-	 String JWT = Jwts.builder()//chama o gerenciador de token
-	 .setSubject(username) //adiciona o usuario que ta fzd o login
-	 .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME)) //tempo de expiração
-	.signWith(SignatureAlgorithm.HS512, SECRET).compact();  //compactação e algoritimo  e geração de senha 
-		
-	 //junta o token com o prefixo
-	 String token = TOKEN_PREFIXO + " " + JWT; // bearer 1239e12e0-wqr0sadsadqweo12e12 exemplo
-	 
-	 //adiciona  no cabeçalho http
-	 response.addHeader(HEADER_STRING, token); //Authorization: bearer 1239e12e0-wqr0sadsadqweo12e12
-	 
-	 //habilita resposta para porta diferente do projeto angular
-	 response.addHeader("Acess-Control-Allow-Origin", "*");
-	 
-	 //vai pegar o contexto passando o token e o username jwt e o token limpo sem bearer
-	 ApplicationContextLoad.getApplicationContext()
-	 .getBean(UsuarioRepository.class).atualizarTokenUser(JWT, username);
-	 
-	 //liberando resposta para portas diferentes que usam a api ou caso clientes web
-	 liberacaoCors(response);
-	 
-	 //Escreve Token como resposta no no corpo http
-	 response.getWriter().write("{\"Authorization\": \""+token+"\"}");
-	 
-	 }
-	 //Retona o usuário validado com token ou caso não seja valido retorna null
-	 public Authentication getAuthentication(HttpServletRequest request, HttpServletResponse
-			 response) {
-		 
-		 //pega o token enviado no cabeçalho http
-		 String token = request.getHeader(HEADER_STRING);
-		 
+	private static final long EXPIRATION_TIME = 864000000;
 
-		
+	private static final String SECRET = "*SenhaExtremamenteSecreta";
 
-		 try {
-		 
-		 if(token != null ){
+	private static final String TOKEN_PREFIXO = "Bearer";
 
-			 //faz a validação do token do usuário na requisição
-			 
-			 String tokenLimpo = token.replace(TOKEN_PREFIXO, "").trim();
-			 
-			// bearer 1239e12e0-wqr0sadsadqweo12e12 token está assim
-			 String user = Jwts.parser().setSigningKey(SECRET) 
-					 
-					 //vem só o token sem o bearer / 1239e12e0-wqr0sadsadqweo12e12 so a numeração
-					 .parseClaimsJws(tokenLimpo.replace(TOKEN_PREFIXO, ""))
-					 
-					 //discompacta tudo retorna só o usuario
-					 .getBody().getSubject(); //"joao silva
-			 
-			 if(user != null) {
-				 //pega os dados em memoria pega o usuariorepository validando o login
-				 Usuario usuario = ApplicationContextLoad.getApplicationContext()
-						 .getBean(UsuarioRepository.class).findByLogin(user);
-				 
-				 if(usuario != null) { //usuario é diferente de null
-					 
-					 if(tokenLimpo.equalsIgnoreCase(usuario.getToken())) {
-						 //se o token for igual ao que está cadastrado no banco vai passar
-					 
-					 
-					 return new UsernamePasswordAuthenticationToken(
-							 usuario.getLogin(),
-							 usuario.getPassword(), 
-							 usuario.getAuthorities());	
-					 }
-			      }
-			 }
-			 
-		  }//fim condição token
-		   
-		 }catch(io.jsonwebtoken.ExpiredJwtException e) {
-			 try {
-				response.getOutputStream().print("Seu TOKEN está expirado, "
-				 		+ "faça o login ou informe um novo TOKEN para AUTENTICACÃO.");
-				liberacaoCors(response);
+	private static final String HEADER_STRING = "Authorization";
+
+	public void addAuthentication(HttpServletResponse response, String username) throws IOException {
+
+		String JWT = Jwts.builder().setSubject(username)
+				.setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
+				.signWith(SignatureAlgorithm.HS512, SECRET).compact();
+
+		String token = TOKEN_PREFIXO + " " + JWT;
+
+		response.addHeader(HEADER_STRING, token);
+
+		response.addHeader("Acess-Control-Allow-Origin", "*");
+
+		ApplicationContextLoad.getApplicationContext().getBean(UsuarioRepository.class).atualizarTokenUser(JWT,
+				username);
+
+		response.getWriter().write("{\"Authorization\": \"" + token + "\"}");
+
+	}
+
+	public Authentication getAuthentication(HttpServletRequest request, HttpServletResponse response) {
+		String token = request.getHeader(HEADER_STRING);
+
+		try {
+
+			if (token != null) {
+
+				String tokenLimpo = token.replace(TOKEN_PREFIXO, "").trim();
+
+				String user = Jwts.parser().setSigningKey(SECRET)
+
+						.parseClaimsJws(tokenLimpo.replace(TOKEN_PREFIXO, ""))
+
+						.getBody().getSubject();
+
+				if (user != null) {
+					Usuario usuario = ApplicationContextLoad.getApplicationContext().getBean(UsuarioRepository.class)
+							.findByLogin(user);
+
+					if (usuario != null) {
+
+						if (tokenLimpo.equalsIgnoreCase(usuario.getToken())) {
+
+							return new UsernamePasswordAuthenticationToken(usuario.getLogin(), usuario.getPassword(),
+									usuario.getAuthorities());
+						}
+					}
+				}
+
+			}
+
+		} catch (io.jsonwebtoken.ExpiredJwtException e) {
+			try {
+				response.getOutputStream().print(
+						"Seu TOKEN está expirado, " + "faça o login ou informe um novo TOKEN para AUTENTICACÃO.");
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
-		 }
-		 
-		 liberacaoCors(response);
-			 return null; //não autorizado
-	 }
-	private void liberacaoCors(HttpServletResponse response) {
-
-		if(response.getHeader("Access-Control-Allow-Origin") == null) {
-			//liberando a resposta e requisição da api pro usuario
-			response.addHeader("Access-Control-Allow-Origin", "*");
 		}
-		
-		if(response.getHeader("Access-Control-Allow-Headers") == null) {
-			response.addHeader("Access-Control-Allow-Headers", "*");
-		} 
-		
-		if(response.getHeader("Access-Control-Request-Headers") == null) {
-			response.addHeader("Access-Control-Request-Headers", "*");
-		}
-		
-		if(response.getHeader("Access-Control-Allow-Methods") == null) {
-			response.addHeader("Access-Control-Allow-Methods", "*");
-			
-		} 
+		return null;
 	}
+
 }
