@@ -1,4 +1,4 @@
-package com.viceri.todo.domain.service;
+package com.viceri.todo.domain.service.impl;
 
 import javax.transaction.Transactional;
 
@@ -14,6 +14,7 @@ import com.viceri.todo.domain.dto.input.UsuarioInput;
 import com.viceri.todo.domain.exception.UsuarioNotFoundException;
 import com.viceri.todo.domain.models.Usuario;
 import com.viceri.todo.domain.repository.UsuarioRepository;
+import com.viceri.todo.domain.service.UsuarioService;
 
 @Service
 public class UsuarioServiceImpl implements UsuarioService {
@@ -71,8 +72,8 @@ public class UsuarioServiceImpl implements UsuarioService {
 				.orElseThrow(() -> new UsuarioNotFoundException(String.format(MSG_USUARIO_NAO_ENCOTNADA, id)));
 	}
 
-	@Override()
-	@Transactional()
+	@Override
+	@Transactional
 	public Long getUserId() {
 		String id = SecurityContextHolder.getContext().getAuthentication().getName();
 		return usuarioRepository.findByLogin(id).getId();

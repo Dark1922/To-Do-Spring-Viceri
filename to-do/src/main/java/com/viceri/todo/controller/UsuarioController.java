@@ -21,8 +21,6 @@ public class UsuarioController {
 
 	@Autowired
 	private UsuarioService usuarioService;
-	
-
 
 	@PostMapping
 	public ResponseEntity<UsuarioDTO> salvarUsuario(@RequestBody @Valid UsuarioInput usuarioInput) {

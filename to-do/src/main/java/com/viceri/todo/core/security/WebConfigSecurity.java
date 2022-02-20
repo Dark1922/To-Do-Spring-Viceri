@@ -12,7 +12,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-import com.viceri.todo.domain.service.ImplementacaoUserDetailsService;
+import com.viceri.todo.domain.service.impl.UserDetailsServiceImpl;
 
 //Mapea URLs , endereços, autoriza ou bloquea acessos a urls
 @Configuration
@@ -20,7 +20,7 @@ import com.viceri.todo.domain.service.ImplementacaoUserDetailsService;
 public class WebConfigSecurity extends WebSecurityConfigurerAdapter {
 
 	@Autowired
-	private ImplementacaoUserDetailsService implementacaoUserDetailsService;
+	private UserDetailsServiceImpl implementacaoUserDetailsService;
 	
 	
     @Override //configura as solicitações de acessos http

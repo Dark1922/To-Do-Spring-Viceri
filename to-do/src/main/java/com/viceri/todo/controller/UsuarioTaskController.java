@@ -15,10 +15,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.viceri.todo.domain.dto.TaskDTO;
 import com.viceri.todo.domain.dto.input.TaskInput;
+import com.viceri.todo.domain.models.Prioridade;
 import com.viceri.todo.domain.service.TaskService;
 
 @RestController
@@ -27,15 +29,13 @@ public class UsuarioTaskController {
 
 	@Autowired
 	private TaskService taskService;
-	
-
 
 	@GetMapping("/{id}")
 	public ResponseEntity<TaskDTO> findById(@PathVariable Long id) {
 		return ResponseEntity.ok(taskService.findById(id));
 	}
 
-	@PostMapping("/{usuarioId}")
+	@PostMapping
 	public ResponseEntity<TaskDTO> saveTask(@RequestBody @Valid TaskInput taskInput) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(taskService.save(taskInput));
 	}
@@ -46,20 +46,27 @@ public class UsuarioTaskController {
 	}
 
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Void> excluir(@PathVariable Long id) {
+	public ResponseEntity<Void> excluirTask(@PathVariable Long id) {
 		taskService.delete(id);
 		return ResponseEntity.noContent().build();
 	}
 
-	@PutMapping("/{id}/completar")
-	public ResponseEntity<Void> completed(@PathVariable Long id) {
+	@PutMapping("/completar/{id}")
+	public ResponseEntity<Void> completedTask(@PathVariable Long id) {
 		taskService.taskCompleta(id);
 		return ResponseEntity.noContent().build();
 	}
 	
-	@GetMapping("/nao-completados")
-	public ResponseEntity<List<TaskDTO>> tarefaPendente()  {
-		return ResponseEntity.ok().body(taskService.findTarefaNaoCompletada());
+	@GetMapping("/pendente")
+	public ResponseEntity<List<TaskDTO>> tarefaPendenteFiltro(@RequestParam(required = false) Prioridade TaskPrioridade) {
+		
+		if(TaskPrioridade != null) {
+		return ResponseEntity.ok().body(taskService.findTarefasPendentesFiltro(TaskPrioridade));
+		}
+		
+		return ResponseEntity.ok().body(taskService.findTarefasPendentes());
 	}
+	
+	
 
 }

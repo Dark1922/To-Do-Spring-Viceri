@@ -1,4 +1,4 @@
-package com.viceri.todo.domain.service;
+package com.viceri.todo.domain.service.impl;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.core.userdetails.User;
@@ -14,7 +14,7 @@ import lombok.AllArgsConstructor;
 
 @Service
 @AllArgsConstructor
-public class ImplementacaoUserDetailsService implements UserDetailsService{
+public class UserDetailsServiceImpl implements UserDetailsService{
 
 	private UsuarioRepository usuarioRepository;
 	
@@ -48,5 +48,4 @@ public class ImplementacaoUserDetailsService implements UserDetailsService{
 		usuarioRepository.insereAcessoRolePadrao(id);
 		}
 	}
-
 }
