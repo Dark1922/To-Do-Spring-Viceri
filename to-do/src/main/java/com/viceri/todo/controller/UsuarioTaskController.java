@@ -63,7 +63,7 @@ public class UsuarioTaskController implements TaskControllerOpenApi {
 	}
 	
 	@GetMapping("/pendente/{usuarioId}")
-	public ResponseEntity<List<TaskDTO>> tarefaPendenteFiltro(@RequestParam(required = false) Prioridade prioridade,
+	public ResponseEntity<List<TaskDTO>> tarefaPendenteFiltroAll(@RequestParam(required = false) Prioridade prioridade,
 			@PathVariable Long usuarioId) {
 		
 		if(prioridade != null) {

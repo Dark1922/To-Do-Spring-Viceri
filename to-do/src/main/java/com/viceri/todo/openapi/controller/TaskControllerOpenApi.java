@@ -2,6 +2,7 @@ package com.viceri.todo.openapi.controller;
 
 import java.util.List;
 
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 
 import com.viceri.todo.domain.dto.TaskDTO;
@@ -20,7 +21,7 @@ public interface TaskControllerOpenApi {
 
 	@ApiOperation("Buscar Task por id")
 	@ApiResponses({ @ApiResponse(code = 400, message = "ID da task inválido", response = Problem.class),
-			@ApiResponse(code = 404, message = "Task não encontrada", response = Problem.class) })
+			@ApiResponse(code = 204, message = "Task encontrada") })
 	ResponseEntity<TaskDTO> findById(@ApiParam(value = "ID de uma Task", example = "1", required = true) Long id);
 
 	@ApiOperation("Cadastra uma Task")
@@ -31,7 +32,7 @@ public interface TaskControllerOpenApi {
 
 	@ApiOperation("Atualiza uma Task por id")
 	@ApiResponses({ @ApiResponse(code = 200, message = "Task atualizada"),
-			@ApiResponse(code = 404, message = "Task	 não encontrada", response = Problem.class) })
+			@ApiResponse(code = 404, message = "Task não encontrada", response = Problem.class) })
 	ResponseEntity<TaskDTO> updateTask(@ApiParam(value = "ID de uma Task", example = "2", required = true) Long id,
 			@ApiParam(name = "corpo", value = "Representação de uma Task com os novos dados") TaskInput taskInput);
 
@@ -41,13 +42,16 @@ public interface TaskControllerOpenApi {
 	ResponseEntity<Void> excluirTask(@ApiParam(value = "ID de uma Task", example = "3", required = true) Long id);
 
 	@ApiOperation("Completa uma task por id")
-	@ApiResponses({ @ApiResponse(code = 204, message = "Task completada"),
-			@ApiResponse(code = 404, message = "Task não encontrada", response = Problem.class) })
+	@ApiResponses({@ApiResponse(code = 404, message = "Task não encontrada", response = Problem.class) ,
+		@ApiResponse(code = 204, message = "Task completada") })
 	ResponseEntity<Void> completedTask(@ApiParam(value = "ID de uma Task", example = "4", required = true) Long id);
 
-	@ApiOperation("Lista todas task, filtragem opcional de prioridade")
-	ResponseEntity<List<TaskDTO>> tarefaPendenteFiltro(
+	@ApiOperation("Lista todas task, filtragem opcional de prioridade pelo id do usuário")
+	ResponseEntity<List<TaskDTO>> tarefaPendenteFiltroAll(
 			@ApiParam(value = "prioridade", example = "ALTA") Prioridade prioridade,
-			@ApiParam(value = "ID de uma Task", example = "5", required = true) Long usuarioId);
+			@ApiParam(value = "ID do usuário", example = "5", required = true) Long usuarioId);
+
+	@ApiOperation("Lista todas task, filtragem opcional de prioridade geral")
+	ResponseEntity<List<TaskDTO>> tarefaPendenteFiltro(Prioridade prioridade, HttpHeaders headers);
 
 }

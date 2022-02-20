@@ -137,7 +137,7 @@ public class SwaggerConfig implements WebMvcConfigurer {
 	}
 
 	public ApiInfo apiInfo() {
-		return new ApiInfoBuilder().title("ToDo-Viceri").description("API aberta para clientes e restaurantes")
+		return new ApiInfoBuilder().title("ToDo-Viceri").description("API aberta para qualquer pessoa que queira ultilziar To-Do")
 				.version("1").contact(new Contact("To-Do", "https://viceri.com.br", "contato@viceri.com")).build();
 	}
 

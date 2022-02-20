@@ -26,7 +26,7 @@ public class TaskServiceImpl implements TaskService {
 
  private static final String MSG_TASK_NAO_ENCOTNADA = "Não existe um cadastro de task com código %d";
  private static final String MSG_NAO_PODE_MODIFICAR_TAKS_DE_OUTROS_USUARIO = "Não pode modificar task de outro usuário";
- private static final String MSG_USUARIO_NAO_CORRESPONDENTE = "Não pode acessar tasks com usuário inválido";
+ private static final String MSG_USUARIO_NAO_CORRESPONDENTE = "Não pode acessar tasks de outros usuários";
 	
 
 	@Autowired
@@ -50,7 +50,7 @@ public class TaskServiceImpl implements TaskService {
 		return taskModelAssembler.toModel(taskRepository.save(taskAtual));
 	}
 
-	@Override
+	@Override 
 	@Transactional
 	public void delete(Long id) {
 		try {

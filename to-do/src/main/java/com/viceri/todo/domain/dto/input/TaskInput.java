@@ -5,6 +5,7 @@ import javax.validation.constraints.NotNull;
 
 import com.viceri.todo.domain.models.Prioridade;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,11 +13,14 @@ import lombok.Setter;
 @Setter
 public class TaskInput {
 	
+	    @ApiModelProperty(example = "Fazer implementações de formas de pagamento")
 	    @NotBlank
 	    private String titulo;
 
+	    @ApiModelProperty(example = "Terminar em 3 dias")
 	    private String descricao;
 	    
+	    @ApiModelProperty(example = "ALTA", required = true)
 	    @NotNull
 	    private Prioridade prioridade;
 
