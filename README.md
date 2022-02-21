@@ -44,7 +44,7 @@
 </dl>
   <hr /> 
   
-  #Build do projeto
+  **Build do projeto**
   
 ```bash
 #Clonar repositório
