@@ -41,9 +41,10 @@
 
 <dt><strong>Bean validation</strong></dt>
 <dd>Ultilizada para fazer validações no sistema e tratamento de erros.</dd>
-
-  <hr />
-  ```bash
+</dl>
+  <hr /> 
+  
+```bash
 #Clonar repositório
 git clone gh repo clone Dark1922/To-Do-Spring-Viceri
 
