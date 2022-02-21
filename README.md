@@ -27,18 +27,6 @@
 
 <hr />
 
-```bash
-#Clonar repositório
-git clone gh repo clone Dark1922/To-Do-Spring-Viceri
-
-#Executar o projeto
-mvn clean install
-
-verificar dados do banco de dados se conferem, e rodar o start da idea ultilizada.
-```
-
-
-
 ## :heavy_check_mark: Tecnologias <a name="technologies"></a>
 
 <dl>
@@ -53,3 +41,14 @@ verificar dados do banco de dados se conferem, e rodar o start da idea ultilizad
 
 <dt><strong>Bean validation</strong></dt>
 <dd>Ultilizada para fazer validações no sistema e tratamento de erros.</dd>
+
+  <hr />
+  ```bash
+#Clonar repositório
+git clone gh repo clone Dark1922/To-Do-Spring-Viceri
+
+#Executar o projeto
+mvn clean install
+
+verificar dados do banco de dados se conferem, e rodar o start da idea ultilizada.
+```
