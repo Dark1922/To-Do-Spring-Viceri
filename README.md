@@ -24,7 +24,7 @@
 <h3 align="center"> Apresentação Swagger e autenticação para funcionalidades das tarefas com suas regras de negócios.</h3>
 <h4>disponibilização da documentação openapi http://test-viceri.herokuapp.com/todo-viceri/swagger-ui/index.html#/</h4>
 
-![swaggerzada](https://user-images.githubusercontent.com/48605830/154868612-185babd6-98d9-4e0e-b25d-6e96247f320f.gif)
+![herokuswagger](https://user-images.githubusercontent.com/48605830/155026296-af3b8ff0-1f83-43aa-826b-bf475249d6d2.gif)
 
 <hr />
 
