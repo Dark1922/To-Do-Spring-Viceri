@@ -52,12 +52,16 @@ public class SwaggerConfig implements WebMvcConfigurer {
 				.globalResponses(HttpMethod.PUT, globalPutResponseMessages())
 				.globalResponses(HttpMethod.DELETE, globalDeleteResponseMessages())
 				.additionalModels(typeResolver.resolve(Problem.class))
-				.apiInfo(apiInfo())
+				.ignoredParameterTypes(Void.class)
 				
+				.apiInfo(apiInfo())
+				 
 				  .securityContexts(Arrays.asList(securityContext()))
 			      .securitySchemes(Arrays.asList(apiKey()))
 			      
-				.tags(new Tag("Tasks", "Gerencia as task"), new Tag("Usuarios", "Gerencia os usuários"));
+				.tags(new Tag("Tasks", "Gerencia as task"),
+					   new Tag("Usuarios", "Gerencia os usuário"));
+						
 
 	}
 
@@ -67,6 +71,7 @@ public class SwaggerConfig implements WebMvcConfigurer {
 						.description("Erro interno do Servidor").build(),
 				new ResponseBuilder().code(comoString(HttpStatus.NOT_ACCEPTABLE))
 						.description("Recurso não possui representação que pode ser aceita pelo consumidor").build());
+		
 	}
 
 	private List<Response> globalPostResponseMessages() {

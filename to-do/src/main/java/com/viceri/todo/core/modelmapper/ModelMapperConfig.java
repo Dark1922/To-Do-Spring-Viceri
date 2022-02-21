@@ -17,8 +17,7 @@ public class ModelMapperConfig {
 		modelMapper.createTypeMap(Usuario.class, UsuarioDTO.class).addMapping(Usuario::getLogin, UsuarioDTO::setEmail);
 //		.addMapping(Usuario::getPassword, UsuarioDTO::setSenha)
 		
-		
-
 		return modelMapper;
 	}
+	
 }

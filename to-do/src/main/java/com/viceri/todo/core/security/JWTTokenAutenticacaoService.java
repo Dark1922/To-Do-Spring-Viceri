@@ -6,16 +6,22 @@ import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import com.viceri.todo.domain.exception.DisneyException;
 import com.viceri.todo.domain.models.Usuario;
 import com.viceri.todo.domain.repository.UsuarioRepository;
 
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.UnsupportedJwtException;
 
 @Service
 @Component
@@ -50,7 +56,7 @@ public class JWTTokenAutenticacaoService {
 
 	public Authentication getAuthentication(HttpServletRequest request, HttpServletResponse response) {
 		String token = request.getHeader(HEADER_STRING);
-
+		
 		try {
 
 			if (token != null) {
@@ -89,5 +95,39 @@ public class JWTTokenAutenticacaoService {
 		}
 		return null;
 	}
-
+	
+	/*fins de documentação openapi*/
+	public String generateToken(Authentication authentication){
+        String username = authentication.getName();
+        Date currentDate = new Date();
+        Date expirationDate =  new Date (currentDate.getTime() + EXPIRATION_TIME);
+        String token = Jwts.builder().setSubject(username).setIssuedAt(new Date()).setExpiration(expirationDate).signWith(SignatureAlgorithm.HS512, SECRET).compact();
+        return token;
+    }
+	
+	   public Boolean validateToken(String token){
+	        try {
+	            Jwts.parser().setSigningKey(SECRET).parseClaimsJws(token);
+	            return true;
+	        } catch (io.jsonwebtoken.SignatureException exception) {
+	            throw new DisneyException(HttpStatus.BAD_REQUEST, "Invalid JWT signature");
+	        }
+	        catch (MalformedJwtException exception) {
+	            throw new DisneyException(HttpStatus.BAD_REQUEST, "Invalid JWT token");
+	        }
+	        catch (ExpiredJwtException exception) {
+	            throw new DisneyException(HttpStatus.BAD_REQUEST, "Expired JWT token");
+	        }
+	        catch (UnsupportedJwtException exception) {
+	            throw new DisneyException(HttpStatus.BAD_REQUEST, "Unsupported JWT token");
+	        }
+	        catch (IllegalArgumentException exception) {
+	            throw new DisneyException(HttpStatus.BAD_REQUEST, "Empty JWT claims");
+	        }
+	    }
+	   
+	   public String getUsernameOfJWT(String token){
+	        Claims claims = Jwts.parser().setSigningKey(SECRET).parseClaimsJws(token).getBody();
+	        return claims.getSubject();
+	    }
 }
