@@ -1,0 +1,32 @@
+Primeiramente queria agradecer por esse desafio incrível, aprendi bastante coisa , como bati bastante a cabeça para poder resolver os problemas e as regras de negócios foi uma grande experiência.
+
+vou resumir um pouco cada parte do sistema
+
+primeiramente eu fiz duas representação de modelo Task e usuário , um usuário tem muitas tarefas , para eu poder ligar  usuário nas tarefas ao fazer o post , como no desafio pediu para n retorna o json de usuário ligado a tarefa fizemos isso via do contexto do usuário autenticado.
+
+fiz uma autenticação a nível de banco de dados , qnd o usuário se autentica é salvo o seu token no banco , e também eu fiz uma um gerenciamento de papeis , onde temos o usuário padrão que é o ROLE_USER qnd o usuário logar ele recebe esse papel por padrão , e também podemos passar papes mais importante via banco de dados ou criar um método para isso, aquele relacionamento grande no roles
+é para podermos colocar mais de um papel em um usuário e que não seja repetido tirando as constraint do banco.
+
+eu utilizei os métodos dto para nos retornar os dados , e o input os dados que vamos usar de entrada para poder fazer um put ou
+delete, eu usei o login mas ele só aceita tipo de e-mail, validações de dados obrigatórios com hibernate , consultar por plsql
+
+fiz uma autenticação com jwt onde as classe:
+
+WebConfigSecurity mapeia toda parte de segurança e regista a classe de Token
+JWTAPIAutenticacaoFilter extende de GenericFilterBean é nosso filtro que captura as requisições e diz para autenticar.
+JWTTokenAutenticacaoService Gera o nosso token e também valida o token enviado.
+JWTLoginFilter extende abstractAuthenticationProcessingFilter e estabelece o nosso gerenciador de token.
+
+eu fiz com essa metodologia pq era um teste e resolvia o problema de autenticação , ficaria um código bem robusto se eu usasse o aouth2 com jwt.
+
+eu fiz as validações de e-mail que usuário n pode cadastrar com e-mail já cadastrado usando uma condição com boolean,
+fiz as validações de usuário que n pode modificar tarefas de outros usuários pegando o seu id pelo contexto autenticado e fazendo essas validações.
+
+fiz os assembler e disassembler para fazer a conversão com modelmapper de usuário para usuarioDTO assim como as tarefas e o mesmo para os input.
+
+fiz dois tipos de pesquisa , que é o usuário passando seu id e retornando só suas tarefas pendentes, e não permite ver tarefas de outros usuários , e eu fiz um que mostrar a tarefas de todos usuários e com filtrader de prioridade com enum ALTA,MEDIA,BAIXA
+se pudesse eu gostaria de receber um feedback do que  poderia ter sido implementado nessas parte de consulta.
+
+e eu segui o padrão solid tratados as validações , regras de negócios pelo service com implementações , e fiz uma documentação swagger detalhando cada ponto do sistema , com o exceptionhandler tratando os erros gerais da api , como recurso n encontrado , recurso não é do tipo enum é do tipo boolean ,e tratar um objeto geral parar nos mostrar oq está errado ao dar algum dado inválido conforme eu montei.
+
+resumidamente é isso obrigado pelo processo.
