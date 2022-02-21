@@ -17,7 +17,7 @@ public class UsuarioInput {
 
 	@ApiModelProperty(example = "example@example.com", required = true)
 	@NotBlank
-	@Email
+	@Email 
 	private String login;
 
 	@ApiModelProperty(example = "9as@Mdas2", required = true)

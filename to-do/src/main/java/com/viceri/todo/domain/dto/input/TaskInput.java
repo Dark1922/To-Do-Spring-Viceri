@@ -17,7 +17,7 @@ public class TaskInput {
 	    @NotBlank
 	    private String titulo;
 
-	    @ApiModelProperty(example = "Terminar em 3 dias")
+	    @ApiModelProperty(example = "Terminar em 3 dias") 
 	    private String descricao;
 	    
 	    @ApiModelProperty(example = "ALTA", required = true)
