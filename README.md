@@ -44,6 +44,8 @@
 </dl>
   <hr /> 
   
+  #Build do projeto
+  
 ```bash
 #Clonar repositório
 git clone gh repo clone Dark1922/To-Do-Spring-Viceri
