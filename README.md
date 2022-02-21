@@ -27,7 +27,10 @@
 
 <hr />
 
-
+´´´bash 
+#build
+mvn clean install
+´´´´
 
 
 ## :heavy_check_mark: Tecnologias <a name="technologies"></a>
