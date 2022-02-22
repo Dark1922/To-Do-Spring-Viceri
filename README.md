@@ -44,26 +44,29 @@
 <dd>Ultilizada para fazer validações no sistema e tratamento de erros.</dd>
 </dl>
   <hr /> 
-  
-  **Build do projeto**
+  </div>
+ 
+ Build do projeto
   
 ```bash
 #Clonar repositório
 git clone gh repo clone Dark1922/To-Do-Spring-Viceri
 
 #Executar o projeto
-mvn clean install
+mvn clean install / updat
 
 verificar dados do banco de dados se conferem, e rodar o start da idea ultilizada.
 ```
-<hr />
 
-<h3>#Deploy</h3><br />
-Caso queira realizar a compilação do projeto para subir em um servidor, rode o comando
-<br>
+```bash
+#Deploy
+Caso queira realizar a compilação do projeto para subir em um servidor
+
 mvn clean install package
-<br>
+
 Esse comando ira compilar um arquivo .jar na pasta /target ao qual pode ser utilizado para subir em um servidor web com o comando:
-<br>
+
 java -jar testeTecnico-0.0.1-SNAPSHOT
 
+```
+<hr>
