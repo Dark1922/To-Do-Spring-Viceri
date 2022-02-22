@@ -29,4 +29,8 @@ se pudesse eu gostaria de receber um feedback do que  poderia ter sido implement
 
 e eu segui o padrão solid tratados as validações , regras de negócios pelo service com implementações , e fiz uma documentação swagger detalhando cada ponto do sistema , com o exceptionhandler tratando os erros gerais da api , como recurso n encontrado , recurso não é do tipo enum é do tipo boolean ,e tratar um objeto geral parar nos mostrar oq está errado ao dar algum dado inválido conforme eu montei.
 
+Acabei implementado um código de login para a documentação , já que as configurações jwt não precisava de controller para o login , fazendo com sua própria configuração, então coloquei ela no controller de usuário pra representar o login de autenticação trazendo o token para autenticação na documentação Swagger.
+Optei por fazer a lista de usuário buscando por id já que era pra trazer a lista só de um usuário e com trataçao dele não poder vê as tarefas de outro user, e fiz uma outra lista que traz tudo. Tudo com filtro.
+
+Como eu estava usando o springfox 3.0 tive alguns problema na hora da documentação então tive que fazer os métodos de demonstração de erros plea própria classe de controlador openapi que é uma interface , que os controller se implementam nela , e fazemos a parte de documentação , demonstra as possíveis falhas do nosso sistemas , tudo separado e com as mensagens tratadas.
 resumidamente é isso obrigado pelo processo.
