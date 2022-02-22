@@ -60,10 +60,10 @@ verificar dados do banco de dados se conferem, e rodar o start da idea ultilizad
 
 <h3>#Deploy</h3><br />
 Caso queira realizar a compilação do projeto para subir em um servidor, rode o comando
-```bash
+<br>
 mvn clean install package
-
+<br>
 Esse comando ira compilar um arquivo .jar na pasta /target ao qual pode ser utilizado para subir em um servidor web com o comando:
-
+<br>
 java -jar testeTecnico-0.0.1-SNAPSHOT
-```
+
