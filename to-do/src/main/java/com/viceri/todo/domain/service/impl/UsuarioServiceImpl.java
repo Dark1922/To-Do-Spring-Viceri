@@ -99,8 +99,8 @@ public class UsuarioServiceImpl implements UsuarioService {
 		}
 
 		if (charactersValidated > 0) {
-			throw new NegocioException(String.format("Senha precisa de ao menos um caracteres especial !@$..,"
-					+ "um número 0-9" + ", uma letra maíuscula A-Z e uma minuscula a-z , e no minimo 6 digitos"));
+			throw new NegocioException(String.format("Senha precisa de ao menos um caractere especial !@$..,"
+					+ "um número 0-9" + ", uma letra maiúscula A-Z e uma minúscula a-z , e no mínimo 6 dígitos"));
 		}
 	}
 
